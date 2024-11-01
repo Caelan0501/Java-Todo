@@ -1,5 +1,8 @@
 public interface ToDo
 {
-    public String printList();
-    public String getTask();
+    public Task[] printList();
+    public Task getTask();
+    public boolean FinishTask(Task task);
 }
+
+
