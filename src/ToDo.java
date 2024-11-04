@@ -5,6 +5,7 @@ public interface ToDo
     Task[] getList();
 
     void AddTask(Task task);
+
     boolean FinishTask(Task task);
 }
 
