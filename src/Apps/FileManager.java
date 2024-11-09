@@ -39,10 +39,7 @@ public class FileManager
         int i = 0;
         for(String Entry : Entries)
         {
-            if (!Entry.contains(" : "))
-            {
-                continue;
-            }
+            if (!Entry.contains(" : ")) continue;
             String[] item = Entry.split(" : ");
             Task task = new Task(item[0], item[1]);
             list[i] = task;
@@ -60,7 +57,7 @@ public class FileManager
         File[] files = directory.listFiles();
         if (files != null)
             for (File file : files)
-                if (file.exists() )
+                if (file.getName().contentEquals(fileName + ".txt"))
                     if (!file.delete())
                         System.err.println("Failed to delete file: " + file.getName());
     }

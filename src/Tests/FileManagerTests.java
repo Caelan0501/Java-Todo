@@ -11,7 +11,7 @@ import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class FileManager_Tests
+public class FileManagerTests
 {
     static String DefaultDestination = System.getProperty("user.dir") + "\\ToDo List Saves\\";
 
@@ -23,31 +23,31 @@ public class FileManager_Tests
         if (files != null) for (File file : files) if (!file.delete()) System.err.println("Failed to delete file: " + file.getName());
     }
 
-    @Test
-    @DisplayName("Save")
-    void Save()
+    QueueList SetUpQueueList(int TestNumber)
     {
-        QueueList list = new QueueList("Test");
+        QueueList list = new QueueList("Test" + TestNumber);
         list.AddTask(new Task("1", "1"));
         list.AddTask(new Task("2", "2"));
         list.AddTask(new Task("3", "3"));
         list.AddTask(new Task("4", "4"));
         list.AddTask(new Task("5", "5"));
-        assertTrue(FileManager.Save(list));
-        File file = new File(DefaultDestination + "Test.txt");
+        return list;
+    }
+
+    @Test
+    @DisplayName("Save")
+    void Save()
+    {
+        assertTrue(FileManager.Save(SetUpQueueList(1)));
+        File file = new File(DefaultDestination + "Test1.txt");
         assertTrue(file.exists());
     }
     @Test
     void Load()
     {
-        QueueList list = new QueueList("Test");
-        list.AddTask(new Task("1", "1"));
-        list.AddTask(new Task("2", "2"));
-        list.AddTask(new Task("3", "3"));
-        list.AddTask(new Task("4", "4"));
-        list.AddTask(new Task("5", "5"));
+        QueueList list = SetUpQueueList(1);
         assertTrue(FileManager.Save(list));
-        QueueList result = (QueueList) FileManager.Load("Test");
+        QueueList result = (QueueList) FileManager.Load("Test1");
         assertNotNull(result);
         assertEquals(result.toString(), list.toString());
     }
@@ -55,13 +55,9 @@ public class FileManager_Tests
     @Test
     void Remove()
     {
-        QueueList list1 = new QueueList("Test1");
-        QueueList list2 = new QueueList("Test2");
-        QueueList list3 = new QueueList("Test3");
-
-        assertTrue(FileManager.Save(list1));
-        assertTrue(FileManager.Save(list2));
-        assertTrue(FileManager.Save(list3));
+        assertTrue(FileManager.Save(SetUpQueueList(1)));
+        assertTrue(FileManager.Save(SetUpQueueList(2)));
+        assertTrue(FileManager.Save(SetUpQueueList(3)));
 
         FileManager.RemoveSave("Test2");
 
@@ -77,13 +73,9 @@ public class FileManager_Tests
     @Test
     void Clear()
     {
-        QueueList list1 = new QueueList("Test1");
-        QueueList list2 = new QueueList("Test2");
-        QueueList list3 = new QueueList("Test3");
-
-        assertTrue(FileManager.Save(list1));
-        assertTrue(FileManager.Save(list2));
-        assertTrue(FileManager.Save(list3));
+        assertTrue(FileManager.Save(SetUpQueueList(1)));
+        assertTrue(FileManager.Save(SetUpQueueList(2)));
+        assertTrue(FileManager.Save(SetUpQueueList(3)));
 
         FileManager.ClearSaves();
 
