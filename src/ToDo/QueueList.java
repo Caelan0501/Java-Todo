@@ -10,7 +10,11 @@ public class QueueList implements ToDo
     public String title;
     Queue<Task> queue;
 
-    public QueueList() { queue = new LinkedList<Task>(); }
+    public QueueList()
+    {
+        title = "Queue List";
+        queue = new LinkedList<Task>();
+    }
 
     public QueueList(String title)
     {
@@ -18,7 +22,11 @@ public class QueueList implements ToDo
         this.title = title;
     }
 
-    public QueueList(Queue<Task> q) { queue = q; }
+    public QueueList(Queue<Task> q)
+    {
+        this();
+        queue = q;
+    }
 
     public QueueList(Task[] tasks)
     {
