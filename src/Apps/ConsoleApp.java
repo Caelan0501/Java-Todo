@@ -22,7 +22,7 @@ public class ConsoleApp
         {
             //System.out.println("Load Successful");
             Task[] content = test.getList();
-            System.out.println(test.title);
+            System.out.println(test.getTitle());
             for(Task item : content) System.out.println(item.title() + " : " + item.description());
         }
         FileManager.RemoveSave("Test2");
